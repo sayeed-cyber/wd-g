@@ -15,7 +15,7 @@ for filename in os.listdir(folder):
     if filename.endswith('.jpeg') or filename.endswith('.jpg') or filename.endswith('.dng'):
         html_code += f'''<div class="col-xl-4">
                <img src="{filename}" class="img-fluid" alt="{filename}">
-            </div>'''
+            </div> '''
 
 html_code += '''</div>
       </div>
