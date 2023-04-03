@@ -1,6 +1,6 @@
 import os
 
-folder = '/home/sayeed/photos web'
+folder = 'C:\\Users\\sayee\\OneDrive\\Desktop\\wd-g'
 
 html_code = '''<!DOCTYPE html>
 <html lang="en" class="no-js">
