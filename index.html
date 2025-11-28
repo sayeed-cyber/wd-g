@@ -1,136 +1,340 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
-   <head>
-      <link href="style.css" rel="stylesheet" type="text/css"/>
-      <style>
-         .download-btn {
-            display: inline-block;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-         }
-         .download-btn:hover {
-            background-color: #3e8e41;
-         }
-      </style>
-   </head>
-   <body>
-      <div class="container additional">
-         <div class="row">
-            <div class="col-xl-4">
-               <img src="IMG_20210215_183608.jpg" class="img-fluid" alt="IMG_20210215_183608.jpg">
-               <a href="IMG_20210215_183608.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Photography Gallery</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <style>
+        img {
+            transition: filter 0.3s ease;
+        }
+        
+        img[loading="lazy"] {
+            opacity: 0.7;
+            filter: blur(8px);
+        }
+        
+        img[loading="lazy"].loaded {
+            opacity: 1;
+            filter: blur(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="title">CRYSTAL LENS</h1>
+            <p class="subtitle">Immersive Photography Gallery</p>
+        </div>
+    </header>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210219_174233.jpg" class="img-fluid" alt="IMG_20210219_174233.jpg">
-               <a href="IMG_20210219_174233.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+    <!-- Gallery Container -->
+    <main class="gallery-container">
+        <div class="gallery-grid">
+            <!-- Gallery items with parallax effect -->
+            <div class="gallery-item" data-index="1">
+                <div class="image-wrapper">
+                    <img src="IMG_20210215_183608.jpg" alt="Gallery Image 1" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 01</h3>
+                        <p>Crystal Clear Moments</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210503_192621.jpg" class="img-fluid" alt="IMG_20210503_192621.jpg">
-               <a href="IMG_20210503_192621.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="2">
+                <div class="image-wrapper">
+                    <img src="IMG_20210219_174233.jpg" alt="Gallery Image 2" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 02</h3>
+                        <p>Fluid Motion</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210503_192657.jpg" class="img-fluid" alt="IMG_20210503_192657.jpg">
-               <a href="IMG_20210503_192657.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="3">
+                <div class="image-wrapper">
+                    <img src="IMG_20210503_192621.jpg" alt="Gallery Image 3" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 03</h3>
+                        <p>Pure Essence</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210507_182528~2.jpg" class="img-fluid" alt="IMG_20210507_182528~2.jpg">
-               <a href="IMG_20210507_182528~2.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="4">
+                <div class="image-wrapper">
+                    <img src="IMG_20210503_192657.jpg" alt="Gallery Image 4" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 04</h3>
+                        <p>Light & Shadow</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210519_181928.jpg" class="img-fluid" alt="IMG_20210519_181928.jpg">
-               <a href="IMG_20210519_181928.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="5">
+                <div class="image-wrapper">
+                    <img src="IMG_20210507_182528~2.jpg" alt="Gallery Image 5" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 05</h3>
+                        <p>Ethereal Beauty</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210522_183722.jpg" class="img-fluid" alt="IMG_20210522_183722.jpg">
-               <a href="IMG_20210522_183722.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="6">
+                <div class="image-wrapper">
+                    <img src="IMG_20210519_181928.jpg" alt="Gallery Image 6" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 06</h3>
+                        <p>Serenity</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210912_184241_1.jpg" class="img-fluid" alt="IMG_20210912_184241_1.jpg">
-               <a href="IMG_20210912_184241_1.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="7">
+                <div class="image-wrapper">
+                    <img src="IMG_20210522_183722.jpg" alt="Gallery Image 7" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 07</h3>
+                        <p>Luminescence</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210915_183302_1.jpg" class="img-fluid" alt="IMG_20210915_183302_1.jpg">
-               <a href="IMG_20210915_183302_1.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="8">
+                <div class="image-wrapper">
+                    <img src="IMG_20210912_184241_1.jpg" alt="Gallery Image 8" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 08</h3>
+                        <p>Tranquility</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20210915_183305.jpg" class="img-fluid" alt="IMG_20210915_183305.jpg">
-               <a href="IMG_20210915_183305.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="9">
+                <div class="image-wrapper">
+                    <img src="IMG_20210915_183302_1.jpg" alt="Gallery Image 9" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 09</h3>
+                        <p>Timeless</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211005_104327.jpg" class="img-fluid" alt="IMG_20211005_104327.jpg">
-               <a href="IMG_20211005_104327.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="10">
+                <div class="image-wrapper">
+                    <img src="IMG_20210915_183305.jpg" alt="Gallery Image 10" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 10</h3>
+                        <p>Reflections</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211005_104946.jpg" class="img-fluid" alt="IMG_20211005_104946.jpg">
-               <a href="IMG_20211005_104946.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="11">
+                <div class="image-wrapper">
+                    <img src="IMG_20211005_104327.jpg" alt="Gallery Image 11" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 11</h3>
+                        <p>Harmony</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211113_205701.jpg" class="img-fluid" alt="IMG_20211113_205701.jpg">
-               <a href="IMG_20211113_205701.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="12">
+                <div class="image-wrapper">
+                    <img src="IMG_20211005_104946.jpg" alt="Gallery Image 12" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 12</h3>
+                        <p>Perspective</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211123_172838_1.jpg" class="img-fluid" alt="IMG_20211123_172838_1.jpg">
-               <a href="IMG_20211123_172838_1.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="13">
+                <div class="image-wrapper">
+                    <img src="IMG_20211113_205701.jpg" alt="Gallery Image 13" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 13</h3>
+                        <p>Dreams</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211123_173326_2.jpg" class="img-fluid" alt="IMG_20211123_173326_2.jpg">
-               <a href="IMG_20211123_173326_2.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="14">
+                <div class="image-wrapper">
+                    <img src="IMG_20211123_172838_1.jpg" alt="Gallery Image 14" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 14</h3>
+                        <p>Radiance</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20211208_194003_1.jpg" class="img-fluid" alt="IMG_20211208_194003_1.jpg">
-               <a href="IMG_20211208_194003_1.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="15">
+                <div class="image-wrapper">
+                    <img src="IMG_20211123_173326_2.jpg" alt="Gallery Image 15" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 15</h3>
+                        <p>Clarity</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220112_205504.jpg" class="img-fluid" alt="IMG_20220112_205504.jpg">
-               <a href="IMG_20220112_205504.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="16">
+                <div class="image-wrapper">
+                    <img src="IMG_20211208_194003_1.jpg" alt="Gallery Image 16" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 16</h3>
+                        <p>Depth</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220215_185506.jpg" class="img-fluid" alt="IMG_20220215_185506.jpg">
-               <a href="IMG_20220215_185506.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="17">
+                <div class="image-wrapper">
+                    <img src="IMG_20220112_205504.jpg" alt="Gallery Image 17" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 17</h3>
+                        <p>Whispers</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220217_115638.jpg" class="img-fluid" alt="IMG_20220217_115638.jpg">
-               <a href="IMG_20220217_115638.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="18">
+                <div class="image-wrapper">
+                    <img src="IMG_20220215_185506.jpg" alt="Gallery Image 18" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 18</h3>
+                        <p>Glow</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220217_120119.jpg" class="img-fluid" alt="IMG_20220217_120119.jpg">
-               <a href="IMG_20220217_120119.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="19">
+                <div class="image-wrapper">
+                    <img src="IMG_20220217_115638.jpg" alt="Gallery Image 19" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 19</h3>
+                        <p>Infinity</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220218_161530.jpg" class="img-fluid" alt="IMG_20220218_161530.jpg">
-               <a href="IMG_20220218_161530.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="20">
+                <div class="image-wrapper">
+                    <img src="IMG_20220217_120119.jpg" alt="Gallery Image 20" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 20</h3>
+                        <p>Horizon</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220218_181143.jpg" class="img-fluid" alt="IMG_20220218_181143.jpg">
-               <a href="IMG_20220218_181143.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="21">
+                <div class="image-wrapper">
+                    <img src="IMG_20220218_161530.jpg" alt="Gallery Image 21" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 21</h3>
+                        <p>Spectrum</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="IMG_20220218_181311.jpg" class="img-fluid" alt="IMG_20220218_181311.jpg">
-               <a href="IMG_20220218_181311.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="22">
+                <div class="image-wrapper">
+                    <img src="IMG_20220218_181143.jpg" alt="Gallery Image 22" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 22</h3>
+                        <p>Nebula</p>
+                    </div>
+                </div>
+            </div>
 
-            </div> <div class="col-xl-4">
-               <img src="PANO_20220215_185539.jpg" class="img-fluid" alt="PANO_20220215_185539.jpg">
-               <a href="PANO_20220215_185539.jpg" class="download-btn" onclick="downloadImage()">Download Image</a>
+            <div class="gallery-item" data-index="23">
+                <div class="image-wrapper">
+                    <img src="IMG_20220218_181311.jpg" alt="Gallery Image 23" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 23</h3>
+                        <p>Aurora</p>
+                    </div>
+                </div>
+            </div>
+            
 
-            </div>     </div>
-      </div>
-      <script>
-         function downloadImage() {
-            var link = document.createElement('a');
-            link.setAttribute('href', 'IMG_20210215_183608.jpg');
-            link.setAttribute('download', 'IMG_20210215_183608.jpg');
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-         }
-      </script>
-   </body>
+            <div class="gallery-item" data-index="24">
+                <div class="image-wrapper">
+                    <img src="PANO_20220215_185539.jpg" alt="Gallery Image 24" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 24</h3>
+                        <p>Panorama</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item" data-index="25">
+                <div class="image-wrapper">
+                    <img src="PHOTO-2025-11-29-01-57-21.jpg" alt="Gallery Image 25" loading="lazy">
+                    <div class="overlay"></div>
+                    <div class="content">
+                        <h3>Moment 25</h3>
+                        <p>Life</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for full screen view -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        
+      
+        <div class="footer-bottom">
+            <p class="designer-credit">
+                Designed & Developed by <strong>Sayeed Khan</strong>
+            </p>
+            <p class="copyright">
+                © 2025 Crystal Lens. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
