@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEPTUNE'S VAULT | Specialist Aquatics</title>
+    <!-- Tailwind CSS for rapid UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CUSTOM STYLES & ANIMATIONS --- */
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #00050a;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: all;
+        }
+
+        .ui-layer {
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .pointer-events-auto {
+            pointer-events: auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(13, 25, 48, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.7), 0 0 20px rgba(100, 255, 218, 0.5);
+        }
+        
+        .neon-border:hover {
+            box-shadow: 0 0 15px #64ffda, inset 0 0 10px #64ffda;
+            border-color: #64ffda;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020c1b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #233554;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64ffda;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loader" class="loader">
+        <div class="text-center">
+            <h1 class="text-4xl text-teal-400 font-bold tracking-widest animate-pulse">INITIALIZING BIOSSPHERE...</h1>
+            <p class="text-teal-900 mt-2 font-mono text-sm">GENERATING VOLUMETRIC MESHES...</p>
+        </div>
+    </div>
+
+    <!-- 3D BACKGROUND -->
+    <div id="canvas-container"></div>
+
+    <!-- WEBSITE CONTENT -->
+    <div class="ui-layer">
+        
+        <!-- NAV -->
+        <nav class="w-full flex justify-between items-center p-8 fixed top-0 pointer-events-auto mix-blend-difference text-white z-50">
+            <div class="text-2xl font-bold tracking-tighter neon-text">NEPTUNE'S VAULT</div>
+            <div class="hidden md:flex space-x-8 font-semibold tracking-widest text-sm">
+                <a href="#specimens" class="hover:text-teal-400 transition">SPECIMENS</a>
+                <a href="#habitats" class="hover:text-teal-400 transition">HABITATS</a>
+                <a href="#tech" class="hover:text-teal-400 transition">BIO-TECH</a>
+            </div>
+            <button class="border border-teal-400 px-6 py-2 rounded-full text-teal-400 hover:bg-teal-400 hover:text-black transition uppercase text-xs font-bold tracking-widest">
+                Cart (0)
+            </button>
+        </nav>
+
+        <!-- HEADER -->
+        <header class="h-screen flex flex-col justify-center items-center text-center px-4">
+            <p class="text-teal-400 tracking-[0.5em] text-sm mb-4 animate-bounce">SCROLL TO DIVE</p>
+            <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight neon-text">
+                THE FUTURE <br> OF AQUATICS
+            </h1>
+            <p class="max-w-xl text-gray-300 text-lg md:text-xl mb-10 leading-relaxed">
+                Experience true flocking intelligence. Our specimens utilize advanced Boids algorithms to navigate the abyss.
+            </p>
+            <a href="#specimens" class="pointer-events-auto glass-panel px-10 py-4 rounded-none text-teal-300 border border-teal-900 hover:bg-teal-900/30 transition duration-300 uppercase tracking-widest font-bold">
+                Enter The Vault
+            </a>
+        </header>
+
+        <!-- SECTION 1: SPECIMENS -->
+        <section id="specimens" class="min-h-screen flex items-center justify-center py-20 px-4">
+            <div class="container mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="glass-panel p-10 rounded-2xl pointer-events-auto transform transition hover:scale-[1.02]">
+                        <h2 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-600">
+                            GEN-Z KOI
+                        </h2>
+                        <p class="text-gray-400 mb-6 text-lg">
+                            Observe the schooling behavior. These digital lifeforms react to their neighbors, maintaining cohesion while avoiding collisions—just like in nature.
+                        </p>
+                        <ul class="space-y-4 text-sm tracking-wider text-teal-200 mb-8">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-teal-400 rounded-full mr-3"></span> BEHAVIOR: FLOCKING V2.0</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-teal-400 rounded-full mr-3"></span> PHYSICS: BOIDS ALGORITHM</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-teal-400 rounded-full mr-3"></span> ANIMATION: LATHE GEOMETRY</li>
+                        </ul>
+                        <button class="border-b-2 border-teal-500 pb-1 text-teal-400 hover:text-white transition">VIEW GENETIC PROFILE</button>
+                    </div>
+                    <!-- Empty div to allow seeing the 3D background -->
+                    <div class="hidden md:block"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: HABITATS -->
+        <section id="habitats" class="min-h-screen flex items-center justify-center py-20 px-4">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl font-bold neon-text">ZERO-G HABITATS</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-8 rounded-xl pointer-events-auto neon-border transition duration-500 cursor-pointer group">
+                        <div class="h-40 bg-blue-900/20 mb-6 rounded-lg flex items-center justify-center border border-white/5">
+                            <span class="text-4xl">🔮</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-teal-300">ORB V1</h3>
+                        <p class="text-gray-400 text-sm">Spherical containment with magnetic suspension technology.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-8 rounded-xl pointer-events-auto neon-border transition duration-500 cursor-pointer group transform md:-translate-y-8">
+                        <div class="h-40 bg-purple-900/20 mb-6 rounded-lg flex items-center justify-center border border-white/5">
+                            <span class="text-4xl">🧊</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-purple-300">CUBE X</h3>
+                        <p class="text-gray-400 text-sm">Rimless, iron-free glass with integrated AI climate control.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-8 rounded-xl pointer-events-auto neon-border transition duration-500 cursor-pointer group">
+                        <div class="h-40 bg-teal-900/20 mb-6 rounded-lg flex items-center justify-center border border-white/5">
+                            <span class="text-4xl">🌿</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-green-300">BIO-WALL</h3>
+                        <p class="text-gray-400 text-sm">Vertical hydroponic integration for moss and fern cultivation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-black/80 py-12 border-t border-teal-900/30 pointer-events-auto">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold tracking-tighter mb-4 md:mb-0">NEPTUNE'S VAULT</div>
+                <div class="text-gray-500 text-sm">
+                    © 2077 AQUATICS CORP. <br> DESIGNED BY GEMINI.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- THREE.JS IMPORTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+
+    <script>
+        // --- CONFIGURATION ---
+        const FISH_COUNT = 40;
+        const NEIGHBOR_DIST = 10;
+        const SEPARATION_DIST = 4;
+        
+        // --- SCENE SETUP ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x00050a, 0.02);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 40);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.toneMapping = THREE.ReinhardToneMapping;
+        container.appendChild(renderer.domElement);
+
+        // --- POST PROCESSING (BLOOM) ---
+        const renderScene = new THREE.RenderPass(scene, camera);
+        const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+        bloomPass.threshold = 0.1;
+        bloomPass.strength = 1.2;
+        bloomPass.radius = 0.5;
+
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // --- LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0x001133, 3.0);
+        scene.add(ambientLight);
+        const sunLight = new THREE.DirectionalLight(0x00ffff, 1.5);
+        sunLight.position.set(0, 50, 20);
+        scene.add(sunLight);
+        const cursorLight = new THREE.PointLight(0xff00ff, 2, 40);
+        scene.add(cursorLight);
+
+        // --- 1. ADVANCED FISH SHADER (Realistic Muscular Movement) ---
+        const fishVertexShader = `
+            uniform float time;
+            varying vec2 vUv;
+            varying vec3 vNormal;
+            
+            void main() {
+                vUv = uv;
+                vNormal = normal;
+                
+                vec3 pos = position;
+                
+                // --- SWIMMING PHYSICS ---
+                // We define the fish lengthwise along the Z axis (Head at Z>0, Tail at Z<0)
+                
+                // 1. Lock the head (make it rigid)
+                // The motion factor increases as we go towards the tail (Z becomes negative)
+                float bodyFlex = smoothstep(1.0, -5.0, pos.z); 
+                
+                // 2. Sine Wave Calculation
+                // Frequency: How many wiggles
+                // Speed: time * 8.0
+                float wave = sin(time * 8.0 + pos.z * 1.5);
+                
+                // 3. Apply lateral movement (X-axis)
+                pos.x += wave * bodyFlex * 0.6; // 0.6 is amplitude
+                
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+            }
+        `;
+
+        const fishFragmentShader = `
+            uniform vec3 color;
+            uniform vec3 glowColor;
+            varying vec3 vNormal;
+            
+            void main() {
+                // Standard Lighting Calculation
+                vec3 lightDir = normalize(vec3(0.5, 1.0, 0.5));
+                float diff = max(dot(vNormal, lightDir), 0.0);
+                
+                // Rim Lighting (Fresnel) for 3D volume accentuation
+                float fresnel = pow(1.0 - dot(vNormal, vec3(0, 0, 1.0)), 3.0);
+                
+                // Combine
+                vec3 base = color * (0.4 + diff * 0.6); // Ambient + Diffuse
+                vec3 finalColor = mix(base, glowColor, fresnel * 0.8);
+                
+                gl_FragColor = vec4(finalColor, 1.0);
+            }
+        `;
+
+        // --- 2. VOLUMETRIC GEOMETRY GENERATOR ---
+        function createOrganicFish() {
+            const fishGroup = new THREE.Group();
+            
+            const shaderMat = new THREE.ShaderMaterial({
+                uniforms: {
+                    time: { value: 0 },
+                    color: { value: new THREE.Color(0x00aaff) },
+                    glowColor: { value: new THREE.Color(0x00ffaa) }
+                },
+                vertexShader: fishVertexShader,
+                fragmentShader: fishFragmentShader,
+                side: THREE.DoubleSide
+            });
+
+            // A. BODY: 3D Lathe Geometry
+            // We define a curve profile, then spin it to make a tube, then flatten it.
+            const points = [];
+            points.push(new THREE.Vector2(0, 0));       // Nose tip
+            points.push(new THREE.Vector2(0.4, 0.5));   // Head width
+            points.push(new THREE.Vector2(0.8, 1.5));   // Mid-body thickest
+            points.push(new THREE.Vector2(0.6, 2.5));   // Tapering
+            points.push(new THREE.Vector2(0.2, 4.0));   // Tail peduncle narrow
+            
+            // Spin this profile to create a round tube
+            const bodyGeom = new THREE.LatheGeometry(points, 24);
+            
+            // Orient correctly: Length along Z axis
+            bodyGeom.rotateX(-Math.PI / 2); 
+            bodyGeom.translate(0, 0, 1.5); // Center it
+
+            const bodyMesh = new THREE.Mesh(bodyGeom, shaderMat);
+            // CRITICAL: Flatten the tube to look like a fish (Tall and Thin)
+            bodyMesh.scale.set(0.4, 1.2, 1); 
+            fishGroup.add(bodyMesh);
+
+            // B. TAIL FIN: Extruded Geometry (Has Thickness)
+            const tailShape = new THREE.Shape();
+            tailShape.moveTo(0, 0);
+            tailShape.quadraticCurveTo(0, 0.5, 0.5, 1.0); // Top curve
+            tailShape.lineTo(1.2, 1.5); // Top tip
+            tailShape.lineTo(0.8, 0);   // Fork center
+            tailShape.lineTo(1.2, -1.5);// Bottom tip
+            tailShape.quadraticCurveTo(0.5, -1.0, 0, 0);  // Bottom curve
+            
+            // ExtrudeSettings: give it actual 3D depth
+            const extrudeSettings = { depth: 0.1, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05, bevelSegments: 2 };
+            const tailGeom = new THREE.ExtrudeGeometry(tailShape, extrudeSettings);
+            
+            tailGeom.rotateY(Math.PI / 2); // Face correct way
+            tailGeom.translate(-0.05, 0, -4.0); // Attach to back of body
+            
+            const tail = new THREE.Mesh(tailGeom, shaderMat);
+            fishGroup.add(tail);
+
+            // C. DORSAL FIN (Top)
+            const dorsalShape = new THREE.Shape();
+            dorsalShape.moveTo(0,0);
+            dorsalShape.lineTo(1.5, 0.8);
+            dorsalShape.quadraticCurveTo(1.0, 0.4, 1.0, 0);
+            
+            const dorsalGeom = new THREE.ExtrudeGeometry(dorsalShape, { depth: 0.1, bevelEnabled: false });
+            dorsalGeom.rotateY(Math.PI / 2);
+            dorsalGeom.translate(-0.05, 1.0, 0.5); // On top of back
+            
+            const dorsal = new THREE.Mesh(dorsalGeom, shaderMat);
+            fishGroup.add(dorsal);
+
+            // D. PECTORAL FINS (Sides)
+            const finShape = new THREE.Shape();
+            finShape.moveTo(0,0);
+            finShape.quadraticCurveTo(0.5, 0.2, 1.2, -0.5);
+            finShape.lineTo(0.2, -0.5);
+            
+            const finGeom = new THREE.ExtrudeGeometry(finShape, { depth: 0.05, bevelEnabled: false });
+            finGeom.rotateX(-Math.PI / 2); // Flat
+            
+            const leftFin = new THREE.Mesh(finGeom, shaderMat);
+            leftFin.position.set(0.3, -0.2, 1.5);
+            leftFin.rotation.z = 0.5;
+            leftFin.rotation.y = 0.5;
+            fishGroup.add(leftFin);
+
+            const rightFin = new THREE.Mesh(finGeom, shaderMat);
+            rightFin.position.set(-0.3, -0.2, 1.5);
+            rightFin.rotation.z = -0.5;
+            rightFin.rotation.y = -0.5;
+            rightFin.scale.x = -1; // Mirror
+            fishGroup.add(rightFin);
+
+            // E. EYES (3D Spheres)
+            const eyeGeom = new THREE.SphereGeometry(0.12, 12, 12);
+            const eyeMat = new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.1 });
+            
+            const leftEye = new THREE.Mesh(eyeGeom, eyeMat);
+            leftEye.position.set(0.35, 0.2, 2.8); // Slightly protruding from flattened body
+            fishGroup.add(leftEye);
+
+            const rightEye = new THREE.Mesh(eyeGeom, eyeMat);
+            rightEye.position.set(-0.35, 0.2, 2.8);
+            fishGroup.add(rightEye);
+
+            // Normalize Size
+            fishGroup.scale.set(0.6, 0.6, 0.6);
+            
+            return fishGroup;
+        }
+
+        // --- BOIDS LOGIC ---
+        class Boid {
+            constructor() {
+                this.position = new THREE.Vector3(
+                    (Math.random() - 0.5) * 80,
+                    (Math.random() - 0.5) * 60,
+                    (Math.random() - 0.5) * 40
+                );
+                this.velocity = new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
+                this.acceleration = new THREE.Vector3();
+                this.maxSpeed = 0.2 + Math.random() * 0.1;
+                this.maxForce = 0.005;
+                
+                this.mesh = createOrganicFish();
+                
+                // Color Variation (Teals, Blues, Purples)
+                const hue = Math.random() > 0.5 ? 0.55 : 0.65; // Blue or Purple base
+                this.mesh.children.forEach(c => {
+                    if(c.material && c.material.uniforms) {
+                        c.material.uniforms.color.value.setHSL(hue + Math.random()*0.1, 0.8, 0.4);
+                    }
+                });
+                
+                this.wiggleOffset = Math.random() * 100;
+                this.wanderAngle = Math.random() * Math.PI * 2;
+                scene.add(this.mesh);
+            }
+
+            flock(boids, target, isTouching) {
+                let separation = new THREE.Vector3();
+                let alignment = new THREE.Vector3();
+                let cohesion = new THREE.Vector3();
+                let count = 0;
+
+                boids.forEach(other => {
+                    if (other === this) return;
+                    const dist = this.position.distanceTo(other.position);
+                    if (dist < NEIGHBOR_DIST && dist > 0) {
+                        cohesion.add(other.position);
+                        alignment.add(other.velocity);
+                        if (dist < SEPARATION_DIST) {
+                            const diff = new THREE.Vector3().copy(this.position).sub(other.position);
+                            diff.normalize().divideScalar(dist);
+                            separation.add(diff);
+                        }
+                        count++;
+                    }
+                });
+
+                if (count > 0) {
+                    cohesion.divideScalar(count).sub(this.position).setLength(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                    alignment.divideScalar(count).setLength(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                    separation.divideScalar(count).setLength(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce);
+                }
+
+                this.acceleration.add(separation.multiplyScalar(2.0));
+                this.acceleration.add(alignment.multiplyScalar(0.3));
+                this.acceleration.add(cohesion.multiplyScalar(0.1));
+
+                // Only seek target when actively touching
+                if (isTouching && target.length() > 0) {
+                    const seek = new THREE.Vector3().copy(target).sub(this.position).setLength(this.maxSpeed).sub(this.velocity).clampLength(0, this.maxForce * 1.5);
+                    this.acceleration.add(seek.multiplyScalar(1.2));
+                } else {
+                    // Wander behavior: random steering in 3D space
+                    this.wanderAngle += (Math.random() - 0.5) * 0.3;
+                    const wanderX = Math.cos(this.wanderAngle) * 0.015;
+                    const wanderY = (Math.random() - 0.5) * 0.015;
+                    const wanderZ = Math.sin(this.wanderAngle) * 0.015;
+                    
+                    const wander = new THREE.Vector3(wanderX, wanderY, wanderZ);
+                    this.acceleration.add(wander);
+                }
+            }
+
+            update(time) {
+                this.position.add(this.velocity);
+                this.velocity.add(this.acceleration);
+                this.velocity.clampLength(0, this.maxSpeed);
+                this.acceleration.set(0, 0, 0);
+
+                this.mesh.position.copy(this.position);
+                
+                // Smooth Rotation - look in direction of movement
+                if (this.velocity.length() > 0.01) {
+                    const lookAt = new THREE.Vector3().copy(this.position).add(this.velocity);
+                    this.mesh.lookAt(lookAt);
+                }
+
+                // Update Shader Time for Swimming Animation
+                this.mesh.children.forEach(child => {
+                    if(child.material && child.material.uniforms) {
+                        child.material.uniforms.time.value = time + this.wiggleOffset;
+                    }
+                });
+            }
+        }
+
+        const boids = [];
+        for(let i=0; i<FISH_COUNT; i++) boids.push(new Boid());
+
+        // --- PARTICLES ---
+        const pGeom = new THREE.BufferGeometry();
+        const pCount = 1000;
+        const pPos = new Float32Array(pCount * 3);
+        for(let i=0; i<pCount*3; i++) pPos[i] = (Math.random()-0.5) * 100;
+        pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        const pMat = new THREE.PointsMaterial({color: 0x00ffff, size: 0.1, transparent: true, opacity: 0.3});
+        const particles = new THREE.Points(pGeom, pMat);
+        scene.add(particles);
+
+        // --- LOOP ---
+        let mouse = new THREE.Vector2();
+        let target = new THREE.Vector3();
+        let scrollY = 0;
+        const clock = new THREE.Clock();
+        let isTouching = false;
+
+        document.addEventListener('mousemove', (e) => {
+            // Only update mouse position if not touching
+            if (!isTouching) {
+                mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                target.set(mouse.x * 40, mouse.y * 25, 0);
+            }
+        });
+
+        // --- TOUCH EVENTS FOR MOBILE ---
+        document.addEventListener('touchstart', (e) => {
+            isTouching = true;
+            const touch = e.touches[0];
+            mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+            target.set(mouse.x * 40, mouse.y * 25, 0);
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                const touch = e.touches[0];
+                mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+                target.set(mouse.x * 40, mouse.y * 25, 0);
+            }
+        });
+
+        document.addEventListener('touchend', (e) => {
+            isTouching = false;
+        });
+
+        window.addEventListener('scroll', () => scrollY = window.scrollY);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+
+            boids.forEach(b => {
+                b.flock(boids, target, isTouching);
+                b.update(time);
+            });
+
+            camera.position.y = THREE.MathUtils.lerp(camera.position.y, -scrollY * 0.05, 0.05);
+            particles.position.y = -scrollY * 0.05;
+            particles.rotation.y = time * 0.02;
+
+            cursorLight.position.copy(target);
+            cursorLight.position.z = 10;
+            cursorLight.intensity = isTouching ? 2 : 0.8;
+
+            composer.render();
+        }
+
+        // Hide Loader
+        setTimeout(() => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').remove(), 1000);
+        }, 1500);
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
+</body>
+</html>
