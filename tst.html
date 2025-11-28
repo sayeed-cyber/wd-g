@@ -416,7 +416,8 @@
 
         // --- BOIDS LOGIC ---
         class Boid {
-            constructor() {
+            constructor(type = 'normal') {
+                this.type = type;
                 this.position = new THREE.Vector3(
                     (Math.random() - 0.5) * 80,
                     (Math.random() - 0.5) * 60,
@@ -424,18 +425,40 @@
                 );
                 this.velocity = new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
                 this.acceleration = new THREE.Vector3();
-                this.maxSpeed = 0.2 + Math.random() * 0.1;
-                this.maxForce = 0.005;
                 
                 this.mesh = createOrganicFish();
                 
-                // Color Variation (Teals, Blues, Purples)
-                const hue = Math.random() > 0.5 ? 0.55 : 0.65; // Blue or Purple base
-                this.mesh.children.forEach(c => {
-                    if(c.material && c.material.uniforms) {
-                        c.material.uniforms.color.value.setHSL(hue + Math.random()*0.1, 0.8, 0.4);
-                    }
-                });
+                if (this.type === 'alpha') {
+                    // BIG FISH CONFIG (Alpha Specimen)
+                    this.maxSpeed = 0.25 + Math.random() * 0.1;
+                    this.maxForce = 0.008;
+                    // Make them significantly bigger (Normal is ~0.6)
+                    this.mesh.scale.set(1.4, 1.4, 1.4);
+                    
+                    // Golden/Amber/Red Color for contrast
+                    const hue = Math.random() > 0.5 ? 0.05 : 0.02; // Orange or Reddish
+                    this.mesh.children.forEach(c => {
+                        if(c.material && c.material.uniforms) {
+                            c.material.uniforms.color.value.setHSL(hue + Math.random()*0.05, 0.9, 0.5);
+                            c.material.uniforms.glowColor.value.setHSL(hue, 1.0, 0.6);
+                        }
+                    });
+                } else {
+                    // NORMAL FISH CONFIG
+                    this.maxSpeed = 0.2 + Math.random() * 0.1;
+                    this.maxForce = 0.005;
+                    // Slight size variation
+                    const scale = 0.5 + Math.random() * 0.2;
+                    this.mesh.scale.set(scale, scale, scale);
+                    
+                    // Color Variation (Teals, Blues, Purples)
+                    const hue = Math.random() > 0.5 ? 0.55 : 0.65; // Blue or Purple base
+                    this.mesh.children.forEach(c => {
+                        if(c.material && c.material.uniforms) {
+                            c.material.uniforms.color.value.setHSL(hue + Math.random()*0.1, 0.8, 0.4);
+                        }
+                    });
+                }
                 
                 this.wiggleOffset = Math.random() * 100;
                 this.wanderAngle = Math.random() * Math.PI * 2;
@@ -513,7 +536,10 @@
         }
 
         const boids = [];
-        for(let i=0; i<FISH_COUNT; i++) boids.push(new Boid());
+        // Create normal flock
+        for(let i=0; i<FISH_COUNT; i++) boids.push(new Boid('normal'));
+        // Create 5 large Alpha specimens
+        for(let i=0; i<5; i++) boids.push(new Boid('alpha'));
 
         // --- PARTICLES ---
         const pGeom = new THREE.BufferGeometry();
