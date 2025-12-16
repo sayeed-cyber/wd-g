@@ -32,7 +32,7 @@
 
         /* Glassmorphism */
         .glass-panel {
-            background: rgba(4, 15, 30, 0.65);
+            background: rgba(4, 15, 30, 0.85); /* Slightly darker for menu legibility */
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(0, 195, 255, 0.15);
@@ -65,6 +65,58 @@
         .map-frame:hover {
             box-shadow: 0 0 25px rgba(0, 195, 255, 0.5);
         }
+
+        /* Mobile hamburger & menu animations */
+        .mobile-hamburger {
+            width: 44px;
+            height: 36px;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            padding: 4px;
+            color: #00c3ff;
+        }
+        .mobile-hamburger .bar {
+            display: block;
+            height: 3px;
+            background: currentColor;
+            border-radius: 2px;
+            transition: transform .35s cubic-bezier(.2,.9,.2,1), opacity .2s ease;
+            transform-origin: center;
+        }
+        .mobile-hamburger .bar1 { width: 22px; }
+        .mobile-hamburger .bar2 { width: 18px; }
+        .mobile-hamburger .bar3 { width: 22px; }
+        .mobile-hamburger.open .bar1 { transform: translateY(6px) rotate(45deg); }
+        .mobile-hamburger.open .bar2 { opacity: 0; transform: scaleX(0); }
+        .mobile-hamburger.open .bar3 { transform: translateY(-6px) rotate(-45deg); }
+
+        .mobile-menu {
+            position: fixed;
+            left: 0; right: 0; top: 0;
+            transform: translateY(-100%);
+            transition: transform .45s cubic-bezier(.2,.9,.2,1);
+            z-index: 45;
+            padding-top: 72px; /* allow space for nav */
+            min-height: 100vh;
+            background: linear-gradient(180deg, rgba(3,7,14,0.96), rgba(3,7,14,0.98));
+            backdrop-filter: blur(14px);
+            pointer-events: auto;
+        }
+        .mobile-menu.open { transform: translateY(0); }
+        .mobile-menu .mobile-link { padding: 16px 0; border-bottom: 1px solid rgba(0,195,255,0.04); width: 100%; display: block; color: #cfeeff; font-size: 1.05rem; transform: translateY(10px); opacity: 0; transition: transform .45s cubic-bezier(.2,.9,.2,1), opacity .35s ease; }
+        .mobile-menu .mobile-link:hover { color: #00e6ff; transform: translateY(0) scale(1.02); }
+        /* Decorative animated glow behind menu */
+        .mobile-menu::before {
+            content: '';
+            position: absolute; inset: 0; z-index: 0;
+            background: radial-gradient( at 20% 20%, rgba(0,195,255,0.09), transparent 10%), radial-gradient(at 80% 80%, rgba(0,120,255,0.06), transparent 15%);
+            mix-blend-mode: screen; pointer-events: none; transition: opacity .4s ease;
+        }
+        .mobile-menu .menu-inner { position: relative; z-index: 1; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding-top:40px; gap:12px; }
+        .mobile-menu.open .mobile-link { transform: translateY(0); opacity: 1; }
+        body.menu-open { overflow: hidden; height: 100%; }
     </style>
 </head>
 <body>
@@ -80,22 +132,38 @@
 
     <div class="ui-layer">
         
-        <nav class="w-full flex justify-between items-center p-6 md:p-8 fixed top-0 pointer-events-auto bg-gradient-to-b from-black/80 to-transparent z-50 backdrop-blur-sm">
-            <div class="text-2xl md:text-3xl font-bold tracking-tighter neon-text brand-font text-cyan-400">
-                <i class="fas fa-water mr-2"></i>BLUE SEA
+        <nav class="w-full fixed top-0 pointer-events-auto z-50 transition-all duration-300">
+            <div class="flex justify-between items-center p-6 md:p-8 bg-gradient-to-b from-black/90 to-transparent backdrop-blur-sm">
+                <div class="text-2xl md:text-3xl font-bold tracking-tighter neon-text brand-font text-cyan-400">
+                    <i class="fas fa-water mr-2"></i>BLUE SEA
+                </div>
+                
+                <div class="hidden md:flex space-x-8 font-bold tracking-widest text-sm text-gray-300">
+                    <a href="#home" class="hover:text-cyan-400 transition">HOME</a>
+                    <a href="#about" class="hover:text-cyan-400 transition">ABOUT</a>
+                    <a href="#livestock" class="hover:text-cyan-400 transition">LIVESTOCK</a>
+                    <a href="#products" class="hover:text-cyan-400 transition">PRODUCTS</a>
+                    <a href="#contact" class="hover:text-cyan-400 transition">LOCATION</a>
+                </div>
+                <a href="#contact" class="hidden md:block border border-cyan-400 px-6 py-2 rounded-none text-cyan-400 hover:bg-cyan-400 hover:text-black transition uppercase text-xs font-bold tracking-widest">
+                    Visit Us
+                </a>
+
+                <button id="mobile-menu-btn" class="md:hidden mobile-hamburger focus:outline-none" aria-expanded="false" aria-label="Toggle menu">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                </button>
             </div>
-            <div class="hidden md:flex space-x-8 font-bold tracking-widest text-sm text-gray-300">
-                <a href="#home" class="hover:text-cyan-400 transition">HOME</a>
-                <a href="#about" class="hover:text-cyan-400 transition">ABOUT</a>
-                <a href="#livestock" class="hover:text-cyan-400 transition">LIVESTOCK</a>
-                <a href="#products" class="hover:text-cyan-400 transition">PRODUCTS</a>
-                <a href="#contact" class="hover:text-cyan-400 transition">LOCATION</a>
-            </div>
-            <a href="#contact" class="hidden md:block border border-cyan-400 px-6 py-2 rounded-none text-cyan-400 hover:bg-cyan-400 hover:text-black transition uppercase text-xs font-bold tracking-widest">
-                Visit Us
-            </a>
-            <div class="md:hidden text-cyan-400 text-2xl">
-                <i class="fas fa-bars"></i>
+
+            <div id="mobile-menu" class="mobile-menu md:hidden glass-panel border-t border-cyan-900" role="dialog" aria-modal="true">
+                <div class="menu-inner font-bold tracking-widest text-sm text-gray-300 w-full max-w-xl px-8">
+                    <a href="#home" class="mobile-link hover:text-cyan-400 transition text-center">HOME</a>
+                    <a href="#about" class="mobile-link hover:text-cyan-400 transition text-center">ABOUT</a>
+                    <a href="#livestock" class="mobile-link hover:text-cyan-400 transition text-center">LIVESTOCK</a>
+                    <a href="#products" class="mobile-link hover:text-cyan-400 transition text-center">PRODUCTS</a>
+                    <a href="#contact" class="mobile-link hover:text-cyan-400 transition text-center">LOCATION</a>
+                </div>
             </div>
         </nav>
 
@@ -265,7 +333,7 @@
             </div>
 
             <div class="border-t border-gray-800 py-6 text-center text-gray-600 text-xs tracking-widest uppercase">
-                <p>&copy; 2025 BLUE SEA AQUARIUM. ALL RIGHTS RESERVED.</p>
+                <p>© 2025 BLUE SEA AQUARIUM. ALL RIGHTS RESERVED.</p>
                 <p class="mt-2 text-cyan-900">Designed by Sayeed Khan</p>
             </div>
         </footer>
@@ -520,6 +588,59 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
             composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- MOBILE MENU LOGIC: animated hamburger, slide-down, and body lock ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function setMenuOpen(open) {
+            if (open) {
+                menuBtn.classList.add('open');
+                mobileMenu.classList.add('open');
+                menuBtn.setAttribute('aria-expanded', 'true');
+                menuBtn.setAttribute('aria-label', 'Close menu');
+                document.body.classList.add('menu-open');
+
+                // stagger link reveals
+                mobileLinks.forEach((lnk, i) => {
+                    lnk.style.transitionDelay = `${i * 0.06}s`;
+                });
+            } else {
+                menuBtn.classList.remove('open');
+                mobileMenu.classList.remove('open');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.setAttribute('aria-label', 'Toggle menu');
+                document.body.classList.remove('menu-open');
+
+                // reset delays
+                mobileLinks.forEach(lnk => {
+                    lnk.style.transitionDelay = '';
+                });
+            }
+        }
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = menuBtn.classList.contains('open');
+            setMenuOpen(!isOpen);
+        });
+
+        // Close menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                setMenuOpen(false);
+            });
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setMenuOpen(false);
+        });
+
+        // Close when clicking outside the menu (on the overlay area)
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) setMenuOpen(false);
         });
     </script>
 </body>
